@@ -1,28 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyRestaurant.Busınnes.Servıces.Abstract;
 using MyRestaurantApi.Models;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace MyRestaurantApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        // In-memory category list
-        private static List<Category> categories = new List<Category>
-        {
-            new Category { Id = 1, Name = "Beverages" },
-            new Category { Id = 2, Name = "Main Dishes" }
-        };
+        private readonly ICategoryServıce categoryServıce;
 
-        // GET: api/Categories
-        [HttpGet]
-        public ActionResult<IEnumerable<Category>> GetCategories()
+        public CategoriesController(ICategoryServıce categoryServıce)
         {
-            return categories;
+            this.categoryServıce = categoryServıce;
         }
 
+        List<Category> categories = new();
+  
         // GET: api/Categories/1
         [HttpGet("{id}")]
         public ActionResult<Category> GetCategory(int id)
@@ -39,8 +35,7 @@ namespace MyRestaurantApi.Controllers
         [HttpPost]
         public ActionResult<Category> CreateCategory(Category category)
         {
-            category.Id = categories.Count > 0 ? categories.Max(c => c.Id) + 1 : 1;
-            categories.Add(category);
+            category = categoryServıce.Save(category);
             return CreatedAtAction(nameof(GetCategory), new { id = category.Id }, category);
         }
 

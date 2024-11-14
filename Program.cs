@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using MyRestaurant.Busınnes.Servıces.Abstract;
+using MyRestaurant.Busınnes.Servıces.Concrete;
 using MyRestaurantApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,7 @@ builder.Services.AddDbContext<RestaurantContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<ICategoryServıce, CategoryServıce>();
 
 var app = builder.Build();
 
