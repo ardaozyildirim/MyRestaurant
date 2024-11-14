@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyRestaurant.Busınnes.Servıces.Abstract;
+using MyRestaurant.Busınnes.Services.Abstract;
 using MyRestaurantApi.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +10,9 @@ namespace MyRestaurantApi.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ICategoryServıce categoryServıce;
+        private readonly ICategoryService categoryServıce;
 
-        public CategoriesController(ICategoryServıce categoryServıce)
+        public CategoriesController(ICategoryService categoryServıce)
         {
             this.categoryServıce = categoryServıce;
         }
